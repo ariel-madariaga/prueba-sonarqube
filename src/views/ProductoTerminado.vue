@@ -253,6 +253,7 @@ export default {
     insertarRuta(ruta) {
       this.$router.push(ruta);
     },
+    //Se obtinenen los productos de la base de datos
     async getProductos() {
       try {
         const snapshot = await db.get();
