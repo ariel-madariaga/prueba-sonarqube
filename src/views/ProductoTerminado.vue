@@ -287,7 +287,7 @@ export default {
       try {
         await db.doc(this.idN).delete();
         this.pr.splice(this.idTabla, 1);
-        this.getProductos;
+        this.getProductos();
         this.dialogDelete = false;
       } catch (error) {
         console.log(error);
@@ -450,7 +450,7 @@ export default {
 
 .producto-terminado-text {
   font-size: 28px;
-  font-style: normal;
+  font-style: normal, Bold;
   text-align: left;
   font-weight: 700;
   padding-top: 0px;
@@ -458,9 +458,6 @@ export default {
   color: rgba(0, 0, 0, 1);
   width: 900px;
   align-self: auto;
-  font-style: Bold;
-  text-align: left;
-  font-weight: 700;
   line-height: normal;
   font-stretch: normal;
   margin-right: 0;
@@ -469,7 +466,7 @@ export default {
 
 .producto-terminado-text {
   font-size: 16px;
-  font-style: normal;
+  font-style: normal, Bold;
   text-align: left;
   font-weight: 700;
   padding-top: 0px;
@@ -477,9 +474,6 @@ export default {
   color: rgba(0, 0, 0, 1);
   width: 900px;
   align-self: auto;
-  font-style: Bold;
-  text-align: left;
-  font-weight: 700;
   line-height: normal;
   font-stretch: normal;
   margin-right: 0;
@@ -527,12 +521,11 @@ export default {
 .table2-container1 {
   width: 100%;
   display: flex;
-  align-items: center;
+  align-items: center, flex-start;
   justify-content: center;
   padding-left: 30px;
   padding-right: 30px;
   padding-bottom: 20px;
-  align-items: flex-start;
 }
 </style>
 

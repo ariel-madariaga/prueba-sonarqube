@@ -263,7 +263,7 @@
   
   .agregar-producto-terminado-text {
     font-size: 28px;
-    font-style: normal;
+    font-style: normal, Bold;
     text-align: left;
     font-weight: 700;
     padding-top: 0px;
@@ -271,9 +271,6 @@
     color: rgba(0, 0, 0, 1);
     width: 900px;
     align-self: auto;
-    font-style: Bold;
-    text-align: left;
-    font-weight: 700;
     line-height: normal;
     font-stretch: normal;
     margin-right: 0;

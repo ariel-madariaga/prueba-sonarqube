@@ -201,9 +201,9 @@
                     <div class="dialog-container1">
                       <v-card-title class="text-h5">Los siguientes productos no deben <br />superar el stock para ser
                         Finalizados:<br /><br />
-                        <li v-for="(item) in textDialogSuperaStock">
+                        <ul v-for="(item) in textDialogSuperaStock">
                           {{ item.nombre }}
-                        </li></v-card-title>
+                        </ul></v-card-title>
                       <v-card-actions>
                         <v-spacer></v-spacer>
                         <v-btn color="blue darken-1" text @click="okSuperaStock">OK</v-btn>
@@ -325,7 +325,7 @@ export default {
   },
   computed: {
     formTitle() {
-      return this.editedIndex === -1 ? 'Modificar cantidad' : 'Modificar cantidad'
+      return 'Modificar cantidad'
     },
   },
 
@@ -725,11 +725,11 @@ export default {
       this.dialogFormula = value
     },
     clickeado(estado) {
-      if (estado) {
+      //if (estado) {
         this.contadorSelected = this.contadorSelected - 1;
-      } else {
-        this.contadorSelected = this.contadorSelected - 1;
-      }
+      //} else {
+        //this.contadorSelected = this.contadorSelected - 1;
+      //} Ver esto, ya que es un bug porque se repite lo mismo
     },
     abrirVentanaAddProductoPendiente() {
       this.getProductoTerminados()
@@ -858,7 +858,6 @@ export default {
   justify-content: flex-start;
   padding-left: 50px;
   padding-right: 50px;
-  padding-bottom: 20px;
   padding-top: 30px;
 }
 
@@ -920,7 +919,6 @@ export default {
   padding-right: 10px;
   flex-direction: column;
   justify-content: flex-start;
-  padding-top: 20px;
 }
 
 .pagina-principal-text06 {

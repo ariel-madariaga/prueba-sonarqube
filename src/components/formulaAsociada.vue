@@ -138,12 +138,11 @@ export default {
 .table2-container1 {
   width: 100%;
   display: flex;
-  align-items: center;
+  align-items: flex-start, center;
   justify-content: center;
   padding-left: 30px;
   padding-right: 30px;
   padding-bottom: 20px;
-  align-items: flex-start;
 }
 
 </style>
