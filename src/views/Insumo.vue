@@ -315,7 +315,7 @@ export default {
     async delete1Insumo(item) {
       this.idN = item.id;
       this.itemINombre = item.nombre;
-      var query = await dbP
+      let query = await dbP
         .where("indiceI", "array-contains", item.id)
         .get();
       if (query.size != 0) {
@@ -343,7 +343,7 @@ export default {
       try {
         this.evaluar()
         console.log(this.validar);
-        if (this.limite && this.nombre && this.editedItem.cantidad && this.editedItem.cantidad > 0 && this.validar == false) {
+        if (this.limite && this.nombre && this.editedItem.cantidad && this.editedItem.cantidad > 0 && this.validar) {
           await db.add({
             nombre: this.nombre,
             codigo: this.codigo,

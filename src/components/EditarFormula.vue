@@ -122,7 +122,7 @@
             materiasData.estado = false;
             materiasData.id = doc.id;
             materias.push(materiasData);
-          }),
+          });
             this.mp = materias;
   
         } catch (error) {
@@ -144,75 +144,6 @@
           this.cantidadI = item.cantidad;
         else
           this.cantidadI = null;
-      },
-      async evaluar() {
-        try {
-          var query2 = await db3
-            .where("sku", "==", this.SKU)
-            .get();
-          if (this.nombre == '')
-            this.dialogUpdate3 = true;
-          else if (this.SKU == '')
-            this.dialogUpdate4 = true;
-          else if (query2.size != 0) {
-            this.dialogUpdate4_2 = true;
-          }
-          else {
-            const MateriasPrimasAsociadas = [];
-            const InsumosAsociados = [];
-            let numMP = 0;
-            let numIN = 0;
-            const indicesMP = [];
-            const indicesI = [];
-            for (var index in this.mp) {
-              if (this.mp[index].cantidad == null) {
-                this.mp[index].cantidad = 0;
-              }
-              if (this.mp[index].estado == true && this.mp[index].cantidad != 0) {
-                MateriasPrimasAsociadas.push({ CantMateriaPrima: this.mp[index].cantidad, idMP: this.mp[index].id })
-                indicesMP.push(this.mp[index].id);
-                numMP++;
-              }
-              if (this.mp[index].estado == true || this.mp[index].cantidad != 0) {
-                this.mp[index].cantidad = 0;
-                this.mp[index].estado = false;
-              }
-            }
-            for (var index in this.ins) {
-              if (this.ins[index].cantidad == null) {
-                this.ins[index].cantidad = 0;
-              }
-              if (this.ins[index].estado == true && this.ins[index].cantidad != 0) {
-                InsumosAsociados.push({ CantidadInsumo: this.ins[index].cantidad, idI: this.ins[index].id })
-                indicesI.push(this.ins[index].id);
-                numIN++;
-              }
-              if (this.ins[index].estado == true || this.ins[index].cantidad != 0) {
-                this.ins[index].cantidad = 0;
-                this.ins[index].estado = false;
-              }
-            }
-            if (numMP == 0 && numIN == 0) {
-              this.dialogUpdate5 = true;
-            }
-            else {
-              await db3.doc().set({
-                nombre: this.nombre,
-                sku: this.SKU,
-                MateriasPrimasAsociadas: MateriasPrimasAsociadas,
-                InsumosAsociados: InsumosAsociados,
-                indiceI: indicesI,
-                indiceMP: indicesMP
-              });
-              this.$emit('updateData', this.SKU);
-              this.nombre = "";
-              this.SKU = "";
-            }
-  
-          }
-        } catch (error) {
-          console.log(error);
-        }
       },
       insertarRuta(ruta) {
         this.$router.push(ruta);

@@ -35,7 +35,7 @@
             </div>
           </template>
           <div class="agregar-producto-pendiente-container3">
-            <div class="agregar-producto-pendiente-container4">
+            <div class="agregar-producto-pendiente-container5">
               <v-file-input show-size type="file" chips truncate-length="10" id="file_upload"></v-file-input>
               <v-btn color="primary" dark class="mb-2" @click="upload">
                 Subir
@@ -603,8 +603,8 @@ export default {
       this.itemDetails.mp = [];
       this.itemDetails.ins = [];
       item.MateriasPrimasAsociadas.forEach( async elemento => {
-        var query1 = await dbMP.doc(elemento.idMP).get();
-        var mAsociada = {
+        let query1 = await dbMP.doc(elemento.idMP).get();
+        let mAsociada = {
           NombreMateriaPrima: query1.data().nombre,
           codigoMP: query1.data().codigo,
           CantMateriaPrima: elemento.CantMateriaPrima,
@@ -612,8 +612,8 @@ export default {
         this.itemDetails.mp.push(mAsociada)
       });
       item.InsumosAsociados.forEach(async elemento => {
-        var query2 = await dbI.doc(elemento.idI).get();
-        var iAsociada = {
+        let query2 = await dbI.doc(elemento.idI).get();
+        let iAsociada = {
           NombreInsumo: query2.data().nombre,
           codigoI: query2.data().codigo,
           CantidadInsumo: elemento.CantidadInsumo,
@@ -768,13 +768,13 @@ export default {
       this.$router.push(ruta);
     },
     upload() {
-      var files = document.getElementById('file_upload').files;
+      let files = document.getElementById('file_upload').files;
       if (files.length == 0) {
         alert("Please choose any file...");
         return;
       }
-      var filename = files[0].name;
-      var extension = filename.substring(filename.lastIndexOf(".")).toUpperCase();
+      let filename = files[0].name;
+      let extension = filename.substring(filename.lastIndexOf(".")).toUpperCase();
       if (extension == '.XLS' || extension == '.XLSX') {
         //this.activarCarga()
         this.excelFileToJSON(files[0]);
@@ -786,18 +786,18 @@ export default {
     },
     excelFileToJSON(file) {
       try {
-        var reader = new FileReader();
+        let reader = new FileReader();
         reader.readAsBinaryString(file);
-        var self = this;
+        let self = this;
         reader.onload = function (e) {
 
-          var data = e.target.result;
-          var workbook = XLSX.read(data, {
+          let data = e.target.result;
+          let workbook = XLSX.read(data, {
             type: 'binary'
           });
           self.productosNoAgregados = '';
           workbook.SheetNames.forEach(function (sheetName) {
-            var roa = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[sheetName]);
+            let roa = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[sheetName]);
             roa.forEach(element => {
               const index = self.productoPendientes.findIndex(item => { return item.sku == element.SKU });
               if (index != -1) {
@@ -999,7 +999,7 @@ export default {
   justify-content: center;
 }
 
-.agregar-producto-pendiente-container4 {
+.agregar-producto-pendiente-container5 {
   display: flex;
   align-items: center;
   justify-content: flex-start;

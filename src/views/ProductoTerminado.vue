@@ -240,7 +240,7 @@ export default {
 
     async agregarNuevoProducto(valor) {
       this.dialogAPT = false;
-      var query = await db
+      let query = await db
         .where("sku", "==", valor)
         .get();
       query.forEach(doc => {
@@ -270,7 +270,7 @@ export default {
     },
     async delete1Producto(item) {
       console.log(1234);
-      var query = await dbPend
+      let query = await dbPend
       .where("id", "==", item.id)
       .get();
       console.log(query.size)
@@ -300,8 +300,8 @@ export default {
       this.nombrePT = item.nombre;
       this.skuPT = item.sku;
       item.MateriasPrimasAsociadas.forEach( async elemento => {
-        var query1 = await dbMP.doc(elemento.idMP).get();
-        var mAsociada = {
+        let query1 = await dbMP.doc(elemento.idMP).get();
+        let mAsociada = {
           NombreMateriaPrima: query1.data().nombre,
           codigoMP: query1.data().codigo,
           CantMateriaPrima: elemento.CantMateriaPrima,
@@ -309,8 +309,8 @@ export default {
         this.mp.push(mAsociada)
       });
       item.InsumosAsociados.forEach(async elemento => {
-        var query2 = await dbI.doc(elemento.idI).get();
-        var iAsociada = {
+        let query2 = await dbI.doc(elemento.idI).get();
+        let iAsociada = {
           NombreInsumo: query2.data().nombre,
           codigoI: query2.data().codigo,
           CantidadInsumo: elemento.CantidadInsumo,
@@ -464,21 +464,6 @@ export default {
   margin-bottom: 0;
 }
 
-.producto-terminado-text {
-  font-size: 16px;
-  font-style: normal, Bold;
-  text-align: left;
-  font-weight: 700;
-  padding-top: 0px;
-  padding-bottom: 0px;
-  color: rgba(0, 0, 0, 1);
-  width: 900px;
-  align-self: auto;
-  line-height: normal;
-  font-stretch: normal;
-  margin-right: 0;
-  margin-bottom: 0;
-}
 
 .formula-titulo-text {
   font-size: 32px;

@@ -26,9 +26,7 @@
 </template>
 
 <script>
-import {ref} from 'vue'
 import Login from './components/Login.vue'
-//import {useAuth} from '@vueuse/firebase'
 import {auth} from './utils/firebase'
 import router from './router'
 export default {

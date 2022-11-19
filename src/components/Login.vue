@@ -222,7 +222,7 @@ export default {
                     //Login
                     const usuario = await auth.signInWithEmailAndPassword(this.inicioSesion.email, this.inicioSesion.password);
                     await router.push('/');
-                    //console.log(usuario.user);
+                    
                     this.inicioSesion.email = '';
                     this.inicioSesion.password = '';
                 } catch (error) {
@@ -239,8 +239,6 @@ export default {
                 }
                 try {
                     //Registrar
-                    //console.log(this.email);
-                    //console.log(this.password);
                     const usuario = await auth.createUserWithEmailAndPassword(this.email, this.password);
                     await dbU.add({
                         Nombre: this.nombre,
@@ -250,7 +248,6 @@ export default {
                     })
                     await router.push('/');
 
-                    //console.log(usuario.user);
                     this.nombre ='';
                     this.apellido='';
                     this.rut='';

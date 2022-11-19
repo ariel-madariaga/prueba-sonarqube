@@ -179,7 +179,7 @@ export default {
           materiasData.estado = false;
           materiasData.id = doc.id;
           materias.push(materiasData);
-        }),
+        });
           this.mp = materias;
 
       } catch (error) {
@@ -204,7 +204,7 @@ export default {
     },
     async evaluar() {
       try {
-        var query2 = await db3
+        let query2 = await db3
           .where("sku", "==", this.SKU)
           .get();
         if (this.nombre == '')
@@ -215,40 +215,13 @@ export default {
           this.dialogUpdate4_2 = true;
         }
         else {
-          const MateriasPrimasAsociadas = [];
-          const InsumosAsociados = [];
-          let numMP = 0;
-          let numIN = 0;
-          const indicesMP = [];
-          const indicesI = [];
-          for (var index in this.mp) {
-            if (this.mp[index].cantidad == null) {
-              this.mp[index].cantidad = 0;
-            }
-            if (this.mp[index].estado == true && this.mp[index].cantidad != 0) {
-              MateriasPrimasAsociadas.push({ CantMateriaPrima: this.mp[index].cantidad, idMP: this.mp[index].id })
-              indicesMP.push(this.mp[index].id);
-              numMP++;
-            }
-            if (this.mp[index].estado == true || this.mp[index].cantidad != 0) {
-              this.mp[index].cantidad = 0;
-              this.mp[index].estado = false;
-            }
-          }
-          for (var index in this.ins) {
-            if (this.ins[index].cantidad == null) {
-              this.ins[index].cantidad = 0;
-            }
-            if (this.ins[index].estado == true && this.ins[index].cantidad != 0) {
-              InsumosAsociados.push({ CantidadInsumo: this.ins[index].cantidad, idI: this.ins[index].id })
-              indicesI.push(this.ins[index].id);
-              numIN++;
-            }
-            if (this.ins[index].estado == true || this.ins[index].cantidad != 0) {
-              this.ins[index].cantidad = 0;
-              this.ins[index].estado = false;
-            }
-          }
+          const datos = this.evaluarRefactoring()
+          const MateriasPrimasAsociadas = datos[0];
+          const InsumosAsociados = datos[1];
+          let numMP = datos[2];
+          let numIN = datos[3];
+          const indicesMP = datos[4];
+          const indicesI = datos[5];
           if (numMP == 0 && numIN == 0) {
             this.dialogUpdate5 = true;
           }
@@ -270,6 +243,45 @@ export default {
       } catch (error) {
         console.log(error);
       }
+    },
+    evaluarRefactoring(){
+      const MateriasPrimasAsociadas = [];
+      const InsumosAsociados = [];
+      let numMP = 0;
+      let numIN = 0;
+      const indicesMP = [];
+      const indicesI = [];
+      let index;
+      for (index in this.mp) {
+        if (this.mp[index].cantidad == null) {
+          this.mp[index].cantidad = 0;
+        }
+        if (this.mp[index].estado && this.mp[index].cantidad != 0) {
+          MateriasPrimasAsociadas.push({ CantMateriaPrima: this.mp[index].cantidad, idMP: this.mp[index].id })
+          indicesMP.push(this.mp[index].id);
+          numMP++;
+        }
+        if (this.mp[index].estado || this.mp[index].cantidad != 0) {
+          this.mp[index].cantidad = 0;
+          this.mp[index].estado = false;
+        }
+      }
+      let index1;
+      for (index1 in this.ins) {
+        if (this.ins[index1].cantidad == null) {
+          this.ins[index1].cantidad = 0;
+        }
+        if (this.ins[index1].estado && this.ins[index1].cantidad != 0) {
+          InsumosAsociados.push({ CantidadInsumo: this.ins[index1].cantidad, idI: this.ins[index1].id })
+          indicesI.push(this.ins[index1].id);
+          numIN++;
+        }
+        if (this.ins[index1].estado || this.ins[index1].cantidad != 0) {
+          this.ins[index1].cantidad = 0;
+          this.ins[index1].estado = false;
+        }
+      }
+      return [MateriasPrimasAsociadas, InsumosAsociados, numMP, numIN, indicesMP, indicesI]
     },
     insertarRuta(ruta) {
       this.$router.push(ruta);
